@@ -95,18 +95,41 @@ export async function POST(request: Request) {
 
 // Funções auxiliares
 async function createAsaasCustomer(customerData: CustomerData) {
+  console.log('Criando cliente no Asaas:', {
+    url: `${ASAAS_CONFIG.BASE_URL}/customers`,
+    customerData
+  });
+
   const response = await fetch(`${ASAAS_CONFIG.BASE_URL}/customers`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'access_token': ASAAS_CONFIG.API_KEY,
+      'Authorization': `Bearer ${ASAAS_CONFIG.API_KEY}`
     },
-    body: JSON.stringify(customerData),
+    body: JSON.stringify({
+      name: customerData.name,
+      email: customerData.email,
+      cpfCnpj: customerData.cpfCnpj.replace(/\D/g, ''),
+      phone: customerData.phone.replace(/\D/g, ''),
+      notificationDisabled: true
+    }),
   });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Erro na resposta do Asaas:', {
+      status: response.status,
+      statusText: response.statusText,
+      body: errorText,
+      headers: Object.fromEntries(response.headers.entries())
+    });
+    throw new Error(`Erro ao criar cliente: ${response.statusText || 'Unauthorized'}`);
+  }
 
   const customer = await response.json();
   
   if (customer.errors) {
+    console.error('Erros retornados pelo Asaas:', customer.errors);
     throw new Error(customer.errors[0].description || 'Erro ao criar cliente');
   }
 
@@ -114,18 +137,35 @@ async function createAsaasCustomer(customerData: CustomerData) {
 }
 
 async function createAsaasPayment(paymentData: PaymentData) {
+  console.log('Criando pagamento no Asaas:', {
+    url: `${ASAAS_CONFIG.BASE_URL}/payments`,
+    paymentData
+  });
+
   const response = await fetch(`${ASAAS_CONFIG.BASE_URL}/payments`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'access_token': ASAAS_CONFIG.API_KEY,
+      'Authorization': `Bearer ${ASAAS_CONFIG.API_KEY}`
     },
     body: JSON.stringify(paymentData),
   });
 
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error('Erro na resposta do Asaas:', {
+      status: response.status,
+      statusText: response.statusText,
+      body: errorText,
+      headers: Object.fromEntries(response.headers.entries())
+    });
+    throw new Error(`Erro ao criar pagamento: ${response.statusText || 'Unauthorized'}`);
+  }
+
   const payment = await response.json();
 
   if (payment.errors) {
+    console.error('Erros retornados pelo Asaas:', payment.errors);
     throw new Error(payment.errors[0].description || 'Erro ao criar pagamento');
   }
 
@@ -133,19 +173,31 @@ async function createAsaasPayment(paymentData: PaymentData) {
 }
 
 async function getPixQrCode(paymentId: string) {
+  console.log('Gerando QR Code PIX:', {
+    url: `${ASAAS_CONFIG.BASE_URL}/payments/${paymentId}/pixQrCode`
+  });
+
   const response = await fetch(`${ASAAS_CONFIG.BASE_URL}/payments/${paymentId}/pixQrCode`, {
     headers: {
-      'access_token': ASAAS_CONFIG.API_KEY,
+      'Authorization': `Bearer ${ASAAS_CONFIG.API_KEY}`
     },
   });
 
   if (!response.ok) {
-    throw new Error(`Erro ao gerar QR Code: ${response.statusText}`);
+    const errorText = await response.text();
+    console.error('Erro na resposta do Asaas:', {
+      status: response.status,
+      statusText: response.statusText,
+      body: errorText,
+      headers: Object.fromEntries(response.headers.entries())
+    });
+    throw new Error(`Erro ao gerar QR Code: ${response.statusText || 'Unauthorized'}`);
   }
 
   const data = await response.json();
 
   if (data.errors) {
+    console.error('Erros retornados pelo Asaas:', data.errors);
     throw new Error(data.errors[0].description || 'Erro ao gerar QR Code PIX');
   }
 

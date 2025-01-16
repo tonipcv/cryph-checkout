@@ -1,80 +1,101 @@
 'use client';
 
-import Image from 'next/image';
+import { Fragment } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import { QrCodeIcon } from '@heroicons/react/24/outline'
 
 interface PixModalProps {
-  pixData: {
-    encodedImage?: string;
-    payload?: string;
-    expirationDate?: string;
-    success?: boolean;
-    error?: string;
-  };
   isOpen: boolean;
   onClose: () => void;
+  pixData: {
+    encodedImage: string;
+    payload: string;
+  } | null;
 }
 
-export function PixModal({ pixData, isOpen, onClose }: PixModalProps) {
-  if (!isOpen) return null;
-
+export function PixModal({ isOpen, onClose, pixData }: PixModalProps) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-8 rounded-lg max-w-md w-full mx-4">
-        <div className="text-center">
-          <h3 className="text-xl font-bold mb-4">Pagamento PIX</h3>
-          
-          {!pixData.success && pixData.error && (
-            <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">
-              <p>{pixData.error}</p>
-              <p className="text-sm mt-2">Por favor, tente novamente em alguns instantes.</p>
-            </div>
-          )}
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
 
-          {pixData.encodedImage && (
-            <div className="mb-6 relative w-[200px] h-[200px] mx-auto">
-              <Image 
-                src={`data:image/png;base64,${pixData.encodedImage}`}
-                alt="QR Code PIX"
-                fill
-                style={{ objectFit: 'contain' }}
-              />
-            </div>
-          )}
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4"
+              enterTo="opacity-100 translate-y-0"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-4"
+            >
+              <Dialog.Panel className="relative transform rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all w-full max-w-md">
+                <div>
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#f5f5f5]">
+                    <QrCodeIcon className="h-8 w-8 text-[#333333]" />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <Dialog.Title as="h3" className="text-lg font-normal text-[#333333]">
+                      Pagamento via PIX
+                    </Dialog.Title>
+                    <div className="mt-2">
+                      <p className="text-sm text-[#666666]">
+                        Escaneie o QR Code abaixo com o app do seu banco
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-          {pixData.payload && (
-            <div className="mb-6">
-              <p className="text-sm text-gray-600 mb-2">Código PIX:</p>
-              <div className="relative">
-                <input
-                  type="text"
-                  value={pixData.payload}
-                  readOnly
-                  className="w-full p-3 bg-gray-50 border rounded text-sm text-gray-900"
-                />
-                <button
-                  onClick={() => navigator.clipboard.writeText(pixData.payload!)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
-                >
-                  Copiar
-                </button>
-              </div>
-            </div>
-          )}
+                {pixData && (
+                  <div className="mt-4 space-y-4">
+                    <div className="flex justify-center">
+                      <img
+                        src={`data:image/png;base64,${pixData.encodedImage}`}
+                        alt="QR Code PIX"
+                        className="w-48 h-48"
+                      />
+                    </div>
+                    
+                    <div className="bg-[#fafafa] p-4 rounded-lg">
+                      <p className="text-xs text-[#666666] mb-2">Código PIX (clique para copiar)</p>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(pixData.payload);
+                          alert('Código PIX copiado!');
+                        }}
+                        className="w-full text-xs text-[#333333] bg-white p-3 rounded border border-[#eeeeee] hover:bg-[#f5f5f5] transition-colors break-all"
+                      >
+                        {pixData.payload}
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-          {pixData.expirationDate && (
-            <p className="text-sm text-gray-600 mb-4">
-              Válido até: {new Date(pixData.expirationDate).toLocaleString()}
-            </p>
-          )}
-
-          <button
-            onClick={onClose}
-            className="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors"
-          >
-            Fechar
-          </button>
+                <div className="mt-5">
+                  <button
+                    type="button"
+                    className="w-full rounded-lg bg-[#333333] px-4 py-3 text-sm font-normal text-white hover:bg-[#444444] transition-colors"
+                    onClick={onClose}
+                  >
+                    Fechar
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
         </div>
-      </div>
-    </div>
+      </Dialog>
+    </Transition.Root>
   );
 } 
