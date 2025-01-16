@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState } from 'react';
+import ReactCreditCards from 'react-credit-cards-2';
+import 'react-credit-cards-2/dist/es/styles-compiled.css';
 
 interface CreditCardFormProps {
   paymentId: string;
@@ -16,6 +19,7 @@ interface CreditCardData {
   expiryYear: string;
   ccv: string;
   installments: number;
+  focused?: "name" | "number" | "expiry" | "cvc";
 }
 
 export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: CreditCardFormProps) {
@@ -26,8 +30,37 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
     expiryMonth: '',
     expiryYear: '',
     ccv: '',
-    installments: 1
+    installments: 1,
+    focused: undefined
   });
+
+  const handleInputFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const name = e.target.name;
+    let focusedField: "name" | "number" | "expiry" | "cvc" | undefined;
+    
+    switch (name) {
+      case 'holderName':
+        focusedField = 'name';
+        break;
+      case 'number':
+        focusedField = 'number';
+        break;
+      case 'expiryMonth':
+      case 'expiryYear':
+        focusedField = 'expiry';
+        break;
+      case 'ccv':
+        focusedField = 'cvc';
+        break;
+      default:
+        focusedField = undefined;
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      focused: focusedField
+    }));
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -78,114 +111,132 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
   const installmentOptions = Array.from({ length: 12 }, (_, i) => i + 1);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 font-['Helvetica']">
-      <div>
-        <label className="block text-sm font-normal text-gray-400 mb-1">
-          Nome no Cartão
-        </label>
-        <input
-          type="text"
-          name="holderName"
-          value={formData.holderName}
-          onChange={handleChange}
-          className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#3B82F6] focus:border-[#3B82F6] outline-none placeholder-gray-500"
-          placeholder="Nome como está no cartão"
-          required
+    <div className="space-y-8 font-['Helvetica']">
+      <div className="flex justify-center">
+        <ReactCreditCards
+          number={formData.number}
+          name={formData.holderName}
+          expiry={`${formData.expiryMonth}${formData.expiryYear}`}
+          cvc={formData.ccv}
+          focused={formData.focused}
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-normal text-gray-400 mb-1">
-          Número do Cartão
-        </label>
-        <input
-          type="text"
-          name="number"
-          value={formData.number}
-          onChange={handleChange}
-          className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#F5B014] focus:border-[#F5B014] outline-none placeholder-gray-500"
-          placeholder="0000 0000 0000 0000"
-          required
-        />
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-normal text-gray-400 mb-1">
-            Mês
+            Nome no Cartão
           </label>
           <input
             type="text"
-            name="expiryMonth"
-            value={formData.expiryMonth}
+            name="holderName"
+            value={formData.holderName}
             onChange={handleChange}
-            className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#F5B014] focus:border-[#F5B014] outline-none placeholder-gray-500"
-            placeholder="MM"
-            maxLength={2}
+            onFocus={handleInputFocus}
+            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            placeholder="Nome como está no cartão"
             required
           />
         </div>
 
         <div>
           <label className="block text-sm font-normal text-gray-400 mb-1">
-            Ano
+            Número do Cartão
           </label>
           <input
             type="text"
-            name="expiryYear"
-            value={formData.expiryYear}
+            name="number"
+            value={formData.number}
             onChange={handleChange}
-            className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#F5B014] focus:border-[#F5B014] outline-none placeholder-gray-500"
-            placeholder="AA"
-            maxLength={2}
+            onFocus={handleInputFocus}
+            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            placeholder="0000 0000 0000 0000"
+            maxLength={19}
             required
           />
         </div>
 
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-normal text-gray-400 mb-1">
+              Mês
+            </label>
+            <input
+              type="text"
+              name="expiryMonth"
+              value={formData.expiryMonth}
+              onChange={handleChange}
+              onFocus={handleInputFocus}
+              className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+              placeholder="MM"
+              maxLength={2}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-normal text-gray-400 mb-1">
+              Ano
+            </label>
+            <input
+              type="text"
+              name="expiryYear"
+              value={formData.expiryYear}
+              onChange={handleChange}
+              onFocus={handleInputFocus}
+              className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+              placeholder="AA"
+              maxLength={2}
+              required
+            />
+          </div>
+        </div>
+
         <div>
           <label className="block text-sm font-normal text-gray-400 mb-1">
-            CCV
+            CVV
           </label>
           <input
             type="text"
             name="ccv"
             value={formData.ccv}
             onChange={handleChange}
-            className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#F5B014] focus:border-[#F5B014] outline-none placeholder-gray-500"
-            placeholder="000"
+            onFocus={handleInputFocus}
+            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            placeholder="123"
             maxLength={4}
             required
           />
         </div>
-      </div>
 
-      <div>
-        <label className="block text-sm font-normal text-gray-400 mb-1">
-          Parcelas
-        </label>
-        <select
-          name="installments"
-          value={formData.installments}
-          onChange={handleChange}
-          className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#F5B014] focus:border-[#F5B014] outline-none placeholder-gray-500"
-          required
+        <div>
+          <label className="block text-sm font-normal text-gray-400 mb-1">
+            Parcelas
+          </label>
+          <select
+            name="installments"
+            value={formData.installments}
+            onChange={handleChange}
+            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            required
+          >
+            {installmentOptions.map(number => (
+              <option key={number} value={number}>
+                {number}x de R$ {(10 / number).toFixed(2)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isLoading}
+          className={`w-full bg-[#B8F536] text-black py-4 px-6 rounded-lg font-medium text-sm hover:bg-[#a5dc31] transition-colors
+            ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
-          {installmentOptions.map(number => (
-            <option key={number} value={number}>
-              {number}x de R$ {(10 / number).toFixed(2)}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <button
-        type="submit"
-        disabled={isLoading}
-        className={`w-full bg-[#3B82F6] text-white py-4 px-6 rounded-lg font-normal text-sm hover:bg-[#2563EB] transition-colors
-          ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
-      >
-        {isLoading ? 'Processando...' : 'Finalizar Pagamento'}
-      </button>
-    </form>
+          {isLoading ? 'Processando...' : 'Finalizar Pagamento'}
+        </button>
+      </form>
+    </div>
   );
 } 

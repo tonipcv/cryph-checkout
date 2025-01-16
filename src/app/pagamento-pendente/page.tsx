@@ -13,11 +13,11 @@ export default function PaymentPendingPage() {
   const formattedDueDate = dueDate ? new Date(dueDate).toLocaleDateString('pt-BR') : '';
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="bg-[#111111] border border-[#222222] rounded-lg p-8 max-w-md w-full space-y-6 text-center">
+    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-4 font-['Helvetica']">
+      <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-8 max-w-md w-full space-y-6 text-center">
         <div className="flex justify-center">
-          <div className="bg-[#222222] p-4 rounded-full">
-            <ClockIcon className="h-12 w-12 text-[#3B82F6]" />
+          <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-lg">
+            <ClockIcon className="h-12 w-12 text-[#B8F536]" />
           </div>
         </div>
 
@@ -30,7 +30,7 @@ export default function PaymentPendingPage() {
           </p>
         </div>
 
-        <div className="bg-[#222222] p-4 rounded-lg space-y-2">
+        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-lg space-y-2">
           <p className="text-sm text-gray-400">
             Vencimento: <span className="font-semibold text-white">{formattedDueDate}</span>
           </p>
@@ -45,7 +45,7 @@ export default function PaymentPendingPage() {
               href={bankSlipUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-[#3B82F6] text-white py-4 px-6 rounded-lg font-normal text-sm hover:bg-[#2563EB] transition-colors"
+              className="block w-full bg-[#B8F536] text-black py-4 px-6 rounded-lg font-medium text-sm hover:bg-[#a5dc31] transition-colors"
             >
               Baixar Boleto
             </a>
@@ -56,7 +56,7 @@ export default function PaymentPendingPage() {
               href={invoiceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-[#222222] text-gray-400 py-4 px-6 rounded-lg font-normal text-sm border border-[#333333] hover:bg-[#333333] transition-colors"
+              className="block w-full bg-[#0A0A0A] text-gray-400 py-4 px-6 rounded-lg font-normal text-sm border border-[#222222] hover:border-white hover:text-white transition-colors"
             >
               Visualizar Fatura
             </a>
@@ -65,7 +65,7 @@ export default function PaymentPendingPage() {
 
         <Link
           href="/"
-          className="block w-full bg-[#111111] text-gray-400 py-4 px-6 rounded-lg font-normal text-sm hover:bg-[#222222] transition-colors"
+          className="block w-full bg-[#0A0A0A] text-gray-400 py-4 px-6 rounded-lg font-normal text-sm border border-[#222222] hover:border-white hover:text-white transition-colors"
         >
           Voltar para o Início
         </Link>

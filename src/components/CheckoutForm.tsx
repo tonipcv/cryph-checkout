@@ -145,113 +145,112 @@ export function CheckoutForm() {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <div className="grid grid-cols-3 gap-4 p-4 bg-[#222222] rounded-lg">
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('CREDIT_CARD')}
-                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg transition-all ${
-                  paymentMethod === 'CREDIT_CARD'
-                    ? 'bg-[#3B82F6] text-white'
-                    : 'bg-[#333333] text-gray-400 hover:bg-[#444444]'
-                }`}
-              >
-                <CreditCardIcon className="h-5 w-5" />
-                <span className="text-xs font-medium">Cartão</span>
-                <span className="text-[10px] font-normal">até 12x</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('PIX')}
-                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg transition-all ${
-                  paymentMethod === 'PIX'
-                    ? 'bg-[#3B82F6] text-white'
-                    : 'bg-[#333333] text-gray-400 hover:bg-[#444444]'
-                }`}
-              >
-                <QrCodeIcon className="h-5 w-5" />
-                <span className="text-xs font-medium">PIX</span>
-                <span className="text-[10px] font-normal">à vista</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('BOLETO')}
-                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg transition-all ${
-                  paymentMethod === 'BOLETO'
-                    ? 'bg-[#3B82F6] text-white'
-                    : 'bg-[#333333] text-gray-400 hover:bg-[#444444]'
-                }`}
-              >
-                <DocumentTextIcon className="h-5 w-5" />
-                <span className="text-xs font-medium">Boleto</span>
-                <span className="text-[10px] font-normal">5 dias</span>
-              </button>
-            </div>
-          </div>
-
           <div className="space-y-4">
             <div>
-              <label className="flex items-center gap-2 text-sm font-normal text-gray-400 mb-1">
-                <UserIcon className="h-4 w-4" />
+              <label className="block text-sm font-normal text-gray-400 mb-1">
                 Nome Completo
               </label>
               <input
                 {...register('name', { required: true })}
-                className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#3B82F6] focus:border-[#3B82F6] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
                 placeholder="Digite seu nome"
               />
-              {errors.name && <span className="text-[#3B82F6] text-xs">Campo obrigatório</span>}
+              {errors.name && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
             </div>
 
             <div>
-              <label className="flex items-center gap-2 text-sm font-normal text-gray-400 mb-1">
-                <EnvelopeIcon className="h-4 w-4" />
+              <label className="block text-sm font-normal text-gray-400 mb-1">
                 Email
               </label>
               <input
                 type="email"
                 {...register('email', { required: true })}
-                className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#3B82F6] focus:border-[#3B82F6] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
                 placeholder="seu@email.com"
               />
-              {errors.email && <span className="text-[#3B82F6] text-xs">Campo obrigatório</span>}
+              {errors.email && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
             </div>
 
             <div>
-              <label className="flex items-center gap-2 text-sm font-normal text-gray-400 mb-1">
-                <IdentificationIcon className="h-4 w-4" />
+              <label className="block text-sm font-normal text-gray-400 mb-1">
                 CPF/CNPJ
               </label>
               <input
                 {...register('cpfCnpj', { required: true })}
                 onChange={handleInputChange}
-                className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#3B82F6] focus:border-[#3B82F6] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
                 placeholder="000.000.000-00"
                 maxLength={18}
               />
-              {errors.cpfCnpj && <span className="text-[#3B82F6] text-xs">Campo obrigatório</span>}
+              {errors.cpfCnpj && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
             </div>
 
             <div>
-              <label className="flex items-center gap-2 text-sm font-normal text-gray-400 mb-1">
-                <PhoneIcon className="h-4 w-4" />
+              <label className="block text-sm font-normal text-gray-400 mb-1">
                 Telefone
               </label>
               <input
                 {...register('phone', { required: true })}
                 onChange={handleInputChange}
-                className="w-full p-3 border border-[#333333] rounded-lg bg-[#222222] text-white focus:ring-1 focus:ring-[#3B82F6] focus:border-[#3B82F6] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
                 placeholder="(00) 00000-0000"
                 maxLength={15}
               />
-              {errors.phone && <span className="text-[#3B82F6] text-xs">Campo obrigatório</span>}
+              {errors.phone && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
+            </div>
+          </div>
+
+          <div className="pt-4">
+            <p className="text-sm font-normal text-gray-400 text-center mb-2">
+              Escolha como você quer pagar
+            </p>
+            <div className="grid grid-cols-3 gap-4">
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('CREDIT_CARD')}
+                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-all ${
+                  paymentMethod === 'CREDIT_CARD'
+                    ? 'border-[#B8F536] text-[#B8F536]'
+                    : 'border-[#222222] text-gray-400 hover:border-white hover:text-white'
+                }`}
+              >
+                <CreditCardIcon className="h-5 w-5" />
+                <span className="text-xs font-medium">Cartão</span>
+                <span className="text-[10px] font-normal opacity-60">até 12x</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('PIX')}
+                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-all ${
+                  paymentMethod === 'PIX'
+                    ? 'border-[#B8F536] text-[#B8F536]'
+                    : 'border-[#222222] text-gray-400 hover:border-white hover:text-white'
+                }`}
+              >
+                <QrCodeIcon className="h-5 w-5" />
+                <span className="text-xs font-medium">PIX</span>
+                <span className="text-[10px] font-normal opacity-60">à vista</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentMethod('BOLETO')}
+                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-all ${
+                  paymentMethod === 'BOLETO'
+                    ? 'border-[#B8F536] text-[#B8F536]'
+                    : 'border-[#222222] text-gray-400 hover:border-white hover:text-white'
+                }`}
+              >
+                <DocumentTextIcon className="h-5 w-5" />
+                <span className="text-xs font-medium">Boleto</span>
+                <span className="text-[10px] font-normal opacity-60">5 dias</span>
+              </button>
             </div>
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-[#3B82F6] text-white py-4 px-6 rounded-lg font-medium text-sm hover:bg-[#2563EB] transition-colors
+            className={`w-full bg-[#B8F536] text-black py-4 px-6 rounded-lg font-medium text-sm hover:bg-[#a5dc31] transition-colors
               ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {isLoading ? 'Processando...' : 'Continuar para o Pagamento'}

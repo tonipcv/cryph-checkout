@@ -5,11 +5,11 @@ import Link from 'next/link';
 
 export default function PaymentConfirmedPage() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="bg-[#111111] border border-[#222222] rounded-lg p-8 max-w-md w-full space-y-6 text-center">
+    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center p-4 font-['Helvetica']">
+      <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-8 max-w-md w-full space-y-6 text-center">
         <div className="flex justify-center">
-          <div className="bg-[#222222] p-4 rounded-full">
-            <CheckCircleIcon className="h-12 w-12 text-[#22c55e]" />
+          <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-lg">
+            <CheckCircleIcon className="h-12 w-12 text-[#B8F536]" />
           </div>
         </div>
 
@@ -22,7 +22,7 @@ export default function PaymentConfirmedPage() {
           </p>
         </div>
 
-        <div className="bg-[#222222] p-4 rounded-lg">
+        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-lg">
           <p className="text-sm text-gray-400">
             Você receberá um email com os detalhes da sua assinatura.
             Em caso de dúvidas, entre em contato com nosso suporte.
@@ -31,7 +31,7 @@ export default function PaymentConfirmedPage() {
 
         <Link
           href="/"
-          className="block w-full bg-[#3B82F6] text-white py-4 px-6 rounded-lg font-normal text-sm hover:bg-[#2563EB] transition-colors"
+          className="block w-full bg-[#B8F536] text-black py-4 px-6 rounded-lg font-medium text-sm hover:bg-[#a5dc31] transition-colors"
         >
           Voltar para o Início
         </Link>
