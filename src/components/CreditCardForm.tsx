@@ -124,7 +124,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-normal text-gray-400 mb-1">
+          <label className="block text-sm font-normal text-white mb-1">
             Nome no Cartão
           </label>
           <input
@@ -133,14 +133,14 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
             value={formData.holderName}
             onChange={handleChange}
             onFocus={handleInputFocus}
-            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors"
             placeholder="Nome como está no cartão"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-normal text-gray-400 mb-1">
+          <label className="block text-sm font-normal text-white mb-1">
             Número do Cartão
           </label>
           <input
@@ -149,7 +149,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
             value={formData.number}
             onChange={handleChange}
             onFocus={handleInputFocus}
-            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors"
             placeholder="0000 0000 0000 0000"
             maxLength={19}
             required
@@ -158,7 +158,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-normal text-gray-400 mb-1">
+            <label className="block text-sm font-normal text-white mb-1">
               Mês
             </label>
             <input
@@ -167,7 +167,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
               value={formData.expiryMonth}
               onChange={handleChange}
               onFocus={handleInputFocus}
-              className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+              className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors"
               placeholder="MM"
               maxLength={2}
               required
@@ -175,7 +175,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
           </div>
 
           <div>
-            <label className="block text-sm font-normal text-gray-400 mb-1">
+            <label className="block text-sm font-normal text-white mb-1">
               Ano
             </label>
             <input
@@ -184,7 +184,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
               value={formData.expiryYear}
               onChange={handleChange}
               onFocus={handleInputFocus}
-              className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+              className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors"
               placeholder="AA"
               maxLength={2}
               required
@@ -193,7 +193,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
         </div>
 
         <div>
-          <label className="block text-sm font-normal text-gray-400 mb-1">
+          <label className="block text-sm font-normal text-white mb-1">
             CVV
           </label>
           <input
@@ -202,7 +202,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
             value={formData.ccv}
             onChange={handleChange}
             onFocus={handleInputFocus}
-            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors"
             placeholder="123"
             maxLength={4}
             required
@@ -210,18 +210,18 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
         </div>
 
         <div>
-          <label className="block text-sm font-normal text-gray-400 mb-1">
+          <label className="block text-sm font-normal text-white mb-1">
             Parcelas
           </label>
           <select
             name="installments"
             value={formData.installments}
             onChange={handleChange}
-            className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+            className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors"
             required
           >
             {installmentOptions.map(number => (
-              <option key={number} value={number}>
+              <option key={number} value={number} className="bg-[#0A0A0A] text-white">
                 {number}x de R$ {(10 / number).toFixed(2)}
               </option>
             ))}
@@ -231,7 +231,7 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
         <button
           type="submit"
           disabled={isLoading}
-          className={`w-full bg-[#B8F536] text-black py-4 px-6 rounded-lg font-medium text-sm hover:bg-[#a5dc31] transition-colors
+          className={`w-full bg-transparent border border-white text-white py-4 px-6 rounded-2xl font-medium text-sm hover:bg-white hover:text-black transition-colors
             ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isLoading ? 'Processando...' : 'Finalizar Pagamento'}

@@ -115,10 +115,10 @@ export function CheckoutForm() {
 
   if (showCreditCardForm && creditCardData) {
     return (
-      <div className="p-6 font-['Helvetica']">
+      <div className="p-6">
         <div className="text-center mb-6">
-          <h2 className="text-lg font-normal text-white mb-2">Dados do Cartão</h2>
-          <p className="text-sm text-gray-400">
+          <h2 className="text-lg font-semibold text-white mb-2">Dados do Cartão</h2>
+          <p className="text-sm font-medium text-white/60">
             Preencha os dados do seu cartão para finalizar o pagamento
           </p>
         </div>
@@ -135,7 +135,7 @@ export function CheckoutForm() {
 
   return (
     <>
-      <div className="p-6 font-['Helvetica']">
+      <div className="p-6">
         <div className="flex justify-center mb-8">
           <img
             src="/logo.png"
@@ -147,102 +147,102 @@ export function CheckoutForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-normal text-gray-400 mb-1">
+              <label className="block text-sm font-medium text-white mb-1">
                 Nome Completo
               </label>
               <input
                 {...register('name', { required: true })}
-                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors font-medium"
                 placeholder="Digite seu nome"
               />
-              {errors.name && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
+              {errors.name && <span className="text-white text-xs font-medium">Campo obrigatório</span>}
             </div>
 
             <div>
-              <label className="block text-sm font-normal text-gray-400 mb-1">
+              <label className="block text-sm font-medium text-white mb-1">
                 Email
               </label>
               <input
                 type="email"
                 {...register('email', { required: true })}
-                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors font-medium"
                 placeholder="seu@email.com"
               />
-              {errors.email && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
+              {errors.email && <span className="text-white text-xs font-medium">Campo obrigatório</span>}
             </div>
 
             <div>
-              <label className="block text-sm font-normal text-gray-400 mb-1">
+              <label className="block text-sm font-medium text-white mb-1">
                 CPF/CNPJ
               </label>
               <input
                 {...register('cpfCnpj', { required: true })}
                 onChange={handleInputChange}
-                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors font-medium"
                 placeholder="000.000.000-00"
                 maxLength={18}
               />
-              {errors.cpfCnpj && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
+              {errors.cpfCnpj && <span className="text-white text-xs font-medium">Campo obrigatório</span>}
             </div>
 
             <div>
-              <label className="block text-sm font-normal text-gray-400 mb-1">
+              <label className="block text-sm font-medium text-white mb-1">
                 Telefone
               </label>
               <input
                 {...register('phone', { required: true })}
                 onChange={handleInputChange}
-                className="w-full p-3 border border-[#222222] rounded-lg bg-[#0A0A0A] text-white focus:ring-1 focus:ring-[#B8F536] focus:border-[#B8F536] outline-none placeholder-gray-500"
+                className="w-full p-3 border border-white/20 rounded-2xl bg-transparent text-white focus:ring-1 focus:ring-white focus:border-white outline-none placeholder-gray-500 transition-colors font-medium"
                 placeholder="(00) 00000-0000"
                 maxLength={15}
               />
-              {errors.phone && <span className="text-[#B8F536] text-xs">Campo obrigatório</span>}
+              {errors.phone && <span className="text-white text-xs font-medium">Campo obrigatório</span>}
             </div>
           </div>
 
           <div className="pt-4">
-            <p className="text-sm font-normal text-gray-400 text-center mb-2">
+            <p className="text-sm font-medium text-white/60 text-center mb-2">
               Escolha como você quer pagar
             </p>
             <div className="grid grid-cols-3 gap-4">
               <button
                 type="button"
                 onClick={() => setPaymentMethod('CREDIT_CARD')}
-                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-all ${
+                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-2xl border transition-all ${
                   paymentMethod === 'CREDIT_CARD'
-                    ? 'border-[#B8F536] text-[#B8F536]'
-                    : 'border-[#222222] text-gray-400 hover:border-white hover:text-white'
+                    ? 'border-white text-white'
+                    : 'border-white/20 text-white/60 hover:border-white hover:text-white'
                 }`}
               >
                 <CreditCardIcon className="h-5 w-5" />
-                <span className="text-xs font-medium">Cartão</span>
-                <span className="text-[10px] font-normal opacity-60">até 12x</span>
+                <span className="text-xs font-semibold">Cartão</span>
+                <span className="text-[10px] font-medium opacity-60">até 12x</span>
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('PIX')}
-                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-all ${
+                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-2xl border transition-all ${
                   paymentMethod === 'PIX'
-                    ? 'border-[#B8F536] text-[#B8F536]'
-                    : 'border-[#222222] text-gray-400 hover:border-white hover:text-white'
+                    ? 'border-white text-white'
+                    : 'border-white/20 text-white/60 hover:border-white hover:text-white'
                 }`}
               >
                 <QrCodeIcon className="h-5 w-5" />
-                <span className="text-xs font-medium">PIX</span>
-                <span className="text-[10px] font-normal opacity-60">à vista</span>
+                <span className="text-xs font-semibold">PIX</span>
+                <span className="text-[10px] font-medium opacity-60">à vista</span>
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('BOLETO')}
-                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-lg border transition-all ${
+                className={`flex flex-col items-center justify-center gap-2 p-3 rounded-2xl border transition-all ${
                   paymentMethod === 'BOLETO'
-                    ? 'border-[#B8F536] text-[#B8F536]'
-                    : 'border-[#222222] text-gray-400 hover:border-white hover:text-white'
+                    ? 'border-white text-white'
+                    : 'border-white/20 text-white/60 hover:border-white hover:text-white'
                 }`}
               >
                 <DocumentTextIcon className="h-5 w-5" />
-                <span className="text-xs font-medium">Boleto</span>
-                <span className="text-[10px] font-normal opacity-60">5 dias</span>
+                <span className="text-xs font-semibold">Boleto</span>
+                <span className="text-[10px] font-medium opacity-60">5 dias</span>
               </button>
             </div>
           </div>
@@ -250,7 +250,7 @@ export function CheckoutForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-[#B8F536] text-black py-4 px-6 rounded-lg font-medium text-sm hover:bg-[#a5dc31] transition-colors
+            className={`w-full bg-transparent border border-white text-white py-4 px-6 rounded-2xl font-semibold text-sm hover:bg-white hover:text-black transition-colors
               ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {isLoading ? 'Processando...' : 'Continuar para o Pagamento'}
