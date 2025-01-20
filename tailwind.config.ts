@@ -14,6 +14,7 @@ export default {
       },
       fontFamily: {
         quicksand: ['var(--font-quicksand)'],
+        inter: ['var(--font-inter)'],
       },
     },
   },
