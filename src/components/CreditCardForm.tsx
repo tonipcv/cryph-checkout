@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState } from 'react';
@@ -8,6 +7,9 @@ import 'react-credit-cards-2/dist/es/styles-compiled.css';
 interface CreditCardFormProps {
   paymentId: string;
   customerId: string;
+  email: string;
+  cpfCnpj: string;
+  phone: string;
   onSuccess: () => void;
   onError: (error: string) => void;
 }
@@ -22,7 +24,7 @@ interface CreditCardData {
   focused?: "name" | "number" | "expiry" | "cvc";
 }
 
-export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: CreditCardFormProps) {
+export function CreditCardForm({ paymentId, customerId, email, cpfCnpj, phone, onSuccess, onError }: CreditCardFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<CreditCardData>({
     holderName: '',
@@ -83,6 +85,9 @@ export function CreditCardForm({ paymentId, customerId, onSuccess, onError }: Cr
         body: JSON.stringify({
           paymentId,
           customerId,
+          email,
+          cpfCnpj,
+          phone,
           creditCard: {
             holderName: formData.holderName,
             number: formData.number.replace(/\D/g, ''),

@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { paymentId, customerId, creditCard, installments } = body;
+    const { paymentId, customerId, creditCard, installments, email, cpfCnpj, phone } = body;
 
     console.log('Processando cartão:', {
       paymentId,
@@ -25,11 +25,11 @@ export async function POST(request: Request) {
         creditCard,
         creditCardHolderInfo: {
           name: creditCard.holderName,
-          email: 'email@exemplo.com',
-          cpfCnpj: '00000000000',
+          email,
+          cpfCnpj,
           postalCode: '00000000',
           addressNumber: '000',
-          phone: '00000000000'
+          phone
         },
         installmentCount: installments,
         remoteIp: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip')

@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useState } from 'react';
@@ -85,7 +87,10 @@ export function CheckoutForm() {
       } else if (paymentMethod === 'CREDIT_CARD') {
         setCreditCardData({
           paymentId: result.paymentId,
-          customerId: result.customerId
+          customerId: result.customerId,
+          email: data.email,
+          cpfCnpj: data.cpfCnpj,
+          phone: data.phone
         });
         setShowCreditCardForm(true);
       } else {
@@ -126,6 +131,9 @@ export function CheckoutForm() {
         <CreditCardForm
           paymentId={creditCardData.paymentId}
           customerId={creditCardData.customerId}
+          email={creditCardData.email}
+          cpfCnpj={creditCardData.cpfCnpj}
+          phone={creditCardData.phone}
           onSuccess={handleCreditCardSuccess}
           onError={handleCreditCardError}
         />

@@ -3,8 +3,9 @@
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
-export default function PaymentPendingPage() {
+function PaymentPendingContent() {
   const searchParams = useSearchParams();
   const bankSlipUrl = searchParams.get('bankSlipUrl');
   const invoiceUrl = searchParams.get('invoiceUrl');
@@ -71,5 +72,13 @@ export default function PaymentPendingPage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function PaymentPendingPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <PaymentPendingContent />
+    </Suspense>
   );
 } 
