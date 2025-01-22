@@ -5,6 +5,7 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  transpilePackages: ['react-credit-cards-2'],
 };
 
 module.exports = nextConfig; 
