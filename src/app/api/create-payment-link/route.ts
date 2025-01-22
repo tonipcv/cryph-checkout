@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'access_token': '$aact_MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmMxZWYxNWVmLTE5NTItNGI4OC04NGE2LTk1NzE4ZGMzMzUxYzo6JGFhY2hfODdkMDVhNzUtNzAzOS00ZTJkLTlkNGEtNjliYTIwYzMwZDlh'
+        'access_token': ASAAS_CONFIG.API_KEY
       },
       body: JSON.stringify(customerData),
     });
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'access_token': '$aact_MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmMxZWYxNWVmLTE5NTItNGI4OC04NGE2LTk1NzE4ZGMzMzUxYzo6JGFhY2hfODdkMDVhNzUtNzAzOS00ZTJkLTlkNGEtNjliYTIwYzMwZDlh'
+        'access_token': ASAAS_CONFIG.API_KEY
       },
       body: JSON.stringify(paymentData),
     });
@@ -105,7 +105,7 @@ export async function POST(request: Request) {
 
       const pixResponse = await fetch(`${ASAAS_CONFIG.BASE_URL}/payments/${payment.id}/pixQrCode`, {
         headers: {
-          'access_token': '$aact_MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OmMxZWYxNWVmLTE5NTItNGI4OC04NGE2LTk1NzE4ZGMzMzUxYzo6JGFhY2hfODdkMDVhNzUtNzAzOS00ZTJkLTlkNGEtNjliYTIwYzMwZDlh'
+          'access_token': ASAAS_CONFIG.API_KEY
         },
       });
 
